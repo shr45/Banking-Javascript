@@ -1,20 +1,52 @@
+const Passbook = require("./Passbook")
+const ValidationError = require("./error/ValidationError")
 class Account{
-    constructor(bankId,fullName,Balance){
-        this.bankId=bankId
-        this.fullName=fullName
-        this.Balance=Balance
+    static accountId = 0
+    constructor(balance){
+        this.id = Account.accountId++
+        this.balance = balance
+        this.passBook = []
     }
-    getAccountID(){
-        return this.bankId
+    getAccountId(){
+        return this.id
     }
-    getAccountFullName()
-    {
-        return this.fullName
+
+    getBalance(){
+        return this.balance
     }
-    getBalance()
-    {
-        return this.Balance
+
+    deposit(amount){
+        try {
+            if(typeof amount != "number" || amount<0){
+                throw new ValidationError("amount not valid")
+            }
+            this.balance = this.balance+amount
+            let passBookObj = new Passbook(new Date(), "credited", amount, this.balance)
+            this.passBook.push(passBookObj)
+            return this.balance
+        } catch (error) {
+            throw error
+        }
     }
+
+    withdraw(amount){
+        try {
+            if(typeof amount != "number" || (amount<0 || amount > this.balance)){
+                throw new ValidationError("amount not valid")
+            }
+            this.balance = this.balance-amount
+            let passBookObj = new PassBook(new Date(), "debited", amount, this.balance)
+            this.passBook.push(passBookObj)
+            return this.balance
+        } catch (error) {
+            throw error
+        }
+    }
+    
+    getPassBook(){
+        return this.passBook
+    }
+
    
 }
 module.exports = Account
