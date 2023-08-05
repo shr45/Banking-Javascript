@@ -421,7 +421,26 @@ console.log("U1 account after depositing money in account");
 console.log(u1.getAllAccount());
 
 console.log("networth of u1 : ", u1.getNetworth(1))
-console.log("networth of U2 : ", u2.getNetworth(2));
 
 console.log("U1 Account 1 passbook");
 console.log(u1.getPassBook(0));
+
+
+console.log(u2);
+u2.createAccount(0, 30000)
+u2.createAccount(1, 90000)
+console.log("U2 account after creating account");
+console.log(u2.getAllAccount());
+console.log("---------------------------------------------------");
+
+u2.deposit(2, 5000)
+console.log("U2 account after depositing money in account");
+console.log(u2.getAllAccount());
+
+
+console.log("networth of U2 : ", u2.getNetworth(2));
+
+console.log(u2.getAllAccount());
+console.log("U2 Account 1 passbook");
+console.log(u2.getPassBook(2));
+
